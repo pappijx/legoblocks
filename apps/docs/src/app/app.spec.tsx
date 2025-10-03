@@ -20,7 +20,7 @@ describe('App', () => {
       </BrowserRouter>
     );
     expect(
-      getAllByText(new RegExp('Welcome @legoblocks/docs', 'gi')).length > 0
+      getAllByText(new RegExp('Welcome to HeadlessLego!', 'gi')).length > 0
     ).toBeTruthy();
   });
 });

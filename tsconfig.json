@@ -5,6 +5,9 @@
   "references": [
     {
       "path": "./apps/docs"
+    },
+    {
+      "path": "./libs/headless-lego"
     }
   ]
 }
