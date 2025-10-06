@@ -10,8 +10,18 @@ module.exports = {
     ),
     ...createGlobPatternsForDependencies(__dirname),
   ],
+  darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: 'rgb(var(--bg) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        text: 'rgb(var(--text) / <alpha-value>)',
+        muted: 'rgb(var(--muted-text) / <alpha-value>)',
+        border: 'rgb(var(--border) / <alpha-value>)',
+        hover: 'rgb(var(--hover) / <alpha-value>)',
+      },
+    },
   },
   plugins: [],
 };

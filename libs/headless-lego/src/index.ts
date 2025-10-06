@@ -1,1 +1,1 @@
-export * from './lib/headless-lego';
+export * from './lib';

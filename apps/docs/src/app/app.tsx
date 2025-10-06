@@ -1,31 +1,51 @@
-import { HeadlessLego } from 'headless-lego';
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Outlet } from 'react-router-dom';
+import { Introduction, NestedStructurePage } from '../pages';
+import { PropsWithChildren, Suspense } from 'react';
+import MasterLayout from '../components/layout/MasterLayout';
+
+const SuspenseLoadedElement = (props: PropsWithChildren) => {
+  const { children } = props;
+
+  return <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>;
+};
 
 export function App() {
   return (
-    <div>
-      <Routes>
+    <Routes>
+      <Route
+        path=""
+        element={
+          <MasterLayout>
+            <Outlet />
+          </MasterLayout>
+        }
+      >
         <Route
-          path="/"
+          path=""
           element={
-            <div>
-              <HeadlessLego />
-              This is the generated root route.{' '}
-              <Link to="/page-2">Click here for page 2.</Link>
-            </div>
+            <SuspenseLoadedElement>
+              <Introduction />
+            </SuspenseLoadedElement>
           }
         />
         <Route
-          path="/page-2"
+          path="how-to-install"
           element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
+            <SuspenseLoadedElement>
+              <Introduction />
+            </SuspenseLoadedElement>
           }
         />
-      </Routes>
-      {/* END: routes */}
-    </div>
+        <Route
+          path="nested-structure"
+          element={
+            <SuspenseLoadedElement>
+              <NestedStructurePage />
+            </SuspenseLoadedElement>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
 
