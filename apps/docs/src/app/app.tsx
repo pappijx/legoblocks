@@ -2,6 +2,7 @@ import { Route, Routes, Outlet } from 'react-router-dom';
 import { Introduction, NestedStructurePage } from '../pages';
 import { PropsWithChildren, Suspense } from 'react';
 import MasterLayout from '../components/layout/MasterLayout';
+import HowToInstall from '../pages/HowToInstall';
 
 const SuspenseLoadedElement = (props: PropsWithChildren) => {
   const { children } = props;
@@ -32,7 +33,7 @@ export function App() {
           path="how-to-install"
           element={
             <SuspenseLoadedElement>
-              <Introduction />
+              <HowToInstall />
             </SuspenseLoadedElement>
           }
         />

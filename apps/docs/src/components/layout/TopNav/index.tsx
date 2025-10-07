@@ -5,7 +5,7 @@ const TopNav = () => {
     <div
       className={`h-[60px] border-b-2 flex items-center justify-between px-4 bg-surface border-border`}
     >
-      <div className="font-semibold">Docs</div>
+      <div className="font-semibold">Lego Blocks</div>
       <ThemeToggle />
     </div>
   );

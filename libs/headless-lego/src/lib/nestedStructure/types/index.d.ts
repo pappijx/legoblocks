@@ -9,10 +9,11 @@ export interface RecurringNodeProps<T> {
     newNode: T,
     position: 'child' | 'before' | 'after' = 'child'
   ) => void;
+  updateNode?: (updatedNode: T) => void;
 }
 
 export type NestedStructureProps<T> = {
   recurringNode: ReactElement<RecurringNodeProps<T>>;
   recurringData: any[];
-  updatedRecurringData?: (udpatedData: any[]) => void;
+  updatedRecurringData?: (updatedData: any[]) => void;
 };

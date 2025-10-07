@@ -34,11 +34,11 @@ export function NestedStructure({
     }
   };
 
-  function addNode(
+  const addNode = (
     targetPath: number[],
     newNode: any,
     position: 'child' | 'before' | 'after' = 'child'
-  ) {
+  ) => {
     const newTree = structuredClone(recurringData);
 
     if (targetPath.length === 0) {
@@ -67,6 +67,22 @@ export function NestedStructure({
     }
 
     updatedRecurringData && updatedRecurringData(newTree);
+  };
+
+  function updateNode(accessPath: number[], partialNode: any) {
+    const newTree = structuredClone(recurringData);
+
+    // Navigate to target node
+    let currentNode = newTree[accessPath[0]];
+    for (let i = 1; i < accessPath.length; i++) {
+      if (!currentNode.children) return; // Invalid path
+      currentNode = currentNode.children[accessPath[i]];
+    }
+
+    // Merge updates immutably
+    Object.assign(currentNode, partialNode);
+
+    updatedRecurringData && updatedRecurringData(newTree);
   }
 
   const renderRecursive = (
@@ -88,6 +104,7 @@ export function NestedStructure({
             newNode: any,
             position: 'child' | 'before' | 'after' = 'child'
           ) => addNode(accessPath, newNode, position),
+          updateNode: (updatedNode: any) => updateNode(accessPath, updatedNode),
         },
         node.children ? renderRecursive(node.children, accessPath) : null
       );

@@ -1,8 +1,8 @@
 import MarkdownRenderer from '../../components/MarkdownRenderer';
 // Import markdown as plain text
-import headlessLegoDoc from './intro.md?raw';
+import headlessLegoDoc from './howToInstall.md?raw';
 
-const Introduction = () => {
+const HowToInstall = () => {
   return (
     <div className={`p-8 text-text max-w-[80%] mx-auto`}>
       <MarkdownRenderer markdownContent={headlessLegoDoc} />
@@ -10,4 +10,4 @@ const Introduction = () => {
   );
 };
 
-export default Introduction;
+export default HowToInstall;
