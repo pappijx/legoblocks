@@ -1,6 +1,6 @@
 # 📦 Installation Guide
 
-Get started with **headless-lego** in your React project with this comprehensive installation guide.
+Get started with **@legoblocks/ui** in your React project with this comprehensive installation guide.
 
 ---
 
@@ -8,29 +8,29 @@ Get started with **headless-lego** in your React project with this comprehensive
 
 ### Step 1: Install the Package
 
-Install **headless-lego** from npm:
+Install **@legoblocks/ui** from npm:
 
 ```bash
-npm install headless-lego
+npm install @legoblocks/ui
 ```
 
 Or if you're using Yarn:
 
 ```bash
-yarn add headless-lego
+yarn add @legoblocks/ui
 ```
 
 Or with pnpm:
 
 ```bash
-pnpm add headless-lego
+pnpm add @legoblocks/ui
 ```
 
 ---
 
 ## 📋 Prerequisites
 
-Before installing **headless-lego**, ensure you have:
+Before installing **@legoblocks/ui**, ensure you have:
 
 - **Node.js** version 16 or higher
 - **React** version 18 or higher
@@ -45,8 +45,8 @@ Before installing **headless-lego**, ensure you have:
 Import the components you need in your React component:
 
 ```tsx
-import { NestedStructure } from 'headless-lego';
-import type { NestedStructureProps, RecurringNodeProps } from 'headless-lego';
+import { NestedStructure } from '@legoblocks/ui';
+import type { NestedStructureProps, RecurringNodeProps } from '@legoblocks/ui';
 ```
 
 ### Step 3: Define Your Data Structure
@@ -162,7 +162,7 @@ Put it all together in your main component:
 
 ```tsx
 import React, { useState } from 'react';
-import { NestedStructure } from 'headless-lego';
+import { NestedStructure } from '@legoblocks/ui';
 import { FileNodeComponent } from './FileNodeComponent';
 
 const FileTreeApp: React.FC = () => {
