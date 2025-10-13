@@ -20,24 +20,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node and npm
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Setup npm
-        uses: npm/action-setup@v3
-        with:
-          version: 9
-          run_install: false
-
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: npm ci
 
       - name: Build headless-lego
         working-directory: libs/headless-lego
-        run: npm build
+        run: npm run build
 
       - name: Publish headless-lego
         working-directory: libs/headless-lego
