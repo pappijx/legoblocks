@@ -1,4 +1,4 @@
-name: Publish headless-lego
+name: Publish @legoblocks/ui
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'headless-lego-v*'
+      - "@legoblocks/ui-lego-v*"
 
 jobs:
   publish:
@@ -23,18 +23,18 @@ jobs:
       - name: Setup Node and npm
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm install
 
-      - name: Build headless-lego
-        working-directory: libs/headless-lego
-        run: npx nx build headless-lego
+      - name: Build @legoblocks/ui
+        working-directory: "."
+        run: npx nx build @legoblocks/ui
 
-      - name: Publish headless-lego
-        working-directory: libs/headless-lego
+      - name: Publish @legoblocks/ui
+        working-directory: libs/ui
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npm publish --access public

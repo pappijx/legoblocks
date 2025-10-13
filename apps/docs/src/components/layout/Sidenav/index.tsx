@@ -1,4 +1,4 @@
-import { NestedStructure, RecurringNodeProps } from 'headless-lego';
+import { NestedStructure, RecurringNodeProps } from '@legoblocks/ui';
 import { Link, useLocation } from 'react-router-dom';
 import { sidenavdata, SideNavDataProp } from './sidenavdata';
 import { useEffect, useMemo, useState } from 'react';

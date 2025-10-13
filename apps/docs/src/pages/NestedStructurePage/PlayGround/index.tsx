@@ -1,4 +1,4 @@
-import { NestedStructure, RecurringNodeProps } from 'headless-lego';
+import { NestedStructure, RecurringNodeProps } from '@legoblocks/ui';
 import { useEffect, useState, type ReactNode } from 'react';
 import { nestedData, NestedDataProps } from '../data/nestedStructuredata';
 import { nestedFiltersData, FilterNode } from './data/nestedFiltersData';

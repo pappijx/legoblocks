@@ -12,12 +12,12 @@ A headless recursive renderer for arbitrary tree data. You provide a "recurring"
 ## Installation
 
 ```bash
-# in an app that consumes the headless library
-pnpm add headless-lego
+# in an app that consumes the @legoblocks/ui library
+pnpm add @legoblocks/ui
 # or
-npm i headless-lego
+npm i @legoblocks/ui
 # or
-yarn add headless-lego
+yarn add @legoblocks/ui
 ```
 
 ---
@@ -25,7 +25,7 @@ yarn add headless-lego
 ## Quick Start
 
 ```tsx
-import { NestedStructure, RecurringNodeProps } from 'headless-lego';
+import { NestedStructure, RecurringNodeProps } from '@legoblocks/ui';
 import { useState } from 'react';
 
 type Node = {

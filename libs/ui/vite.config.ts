@@ -6,7 +6,7 @@ import * as path from 'path';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/libs/headless-lego',
+  cacheDir: '../../node_modules/.vite/libs/ui',
   plugins: [
     react(),
     dts({
@@ -30,7 +30,7 @@ export default defineConfig(() => ({
     lib: {
       // Could also be a dictionary or array of multiple entry points.
       entry: 'src/index.ts',
-      name: 'headless-lego',
+      name: '@legoblocks/ui',
       fileName: 'index',
       // Change this to the formats you want to support.
       // Don't forget to update your package.json as well.
@@ -42,15 +42,13 @@ export default defineConfig(() => ({
     },
   },
   test: {
-    name: 'headless-lego',
+    name: '@legoblocks/ui',
     watch: false,
     globals: true,
     environment: 'jsdom',
     include: ['{src,tests}/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    setupFiles: ['../../tests/setup-test-environment.ts'],
     reporters: ['default'],
     coverage: {
-      reporter: ['text', 'json', 'html'],
       reportsDirectory: './test-output/vitest/coverage',
       provider: 'v8' as const,
     },

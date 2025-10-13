@@ -3,7 +3,7 @@
   "include": [],
   "references": [
     {
-      "path": "../../libs/headless-lego"
+      "path": "../../libs/ui"
     },
     {
       "path": "./tsconfig.app.json"
