@@ -192,3 +192,22 @@ type Node = {
   children?: Node[];
 };
 ```
+
+---
+
+## How updates and deletes are optimized (theory)
+
+- Path-based targeting (not global search): Each node carries an `accessPath` (array of indices) that pinpoints its location. Update and delete operations first navigate via this path to reach the exact node or its parent in O(depth) time, avoiding a full-tree search.
+- Single immutable clone per operation: We take one `structuredClone` of the current tree at the start of an operation. All changes are applied to this cloned structure, preventing accidental mutation and ensuring referential integrity for React reconciliation.
+- Localized work only:
+  - Delete uses the parent from the `accessPath` and performs a single splice on the appropriate children array.
+  - Add computes the correct insertion point (child/before/after) and mutates only the relevant sibling list.
+  - Update merges fields into just the targeted node.
+  - Subtree updates (like cascading selection) first navigate to the subtree root by `accessPath`, then perform a depth-first traversal limited to that subtree (optionally bounded by `depth` and filtered by `predicate`).
+- Single emission, predictable renders: We call `updatedRecurringData` once per operation with the fully-updated, cloned tree. Consumers keep the tree as controlled state, so React reconciles only the parts that changed. No intermediate emissions, no repeated clones.
+- Stable recursion for rendering; path for precision: Rendering is handled via a simple recursive walk that clones your recurring node component at each level. Mutations use index paths for precision and performance, combining both models for clarity and speed.
+- No schema lock-in: The library assumes `children` by default but lets behaviors like subtree updates customize the children key. This keeps the algorithm efficient without constraining your node shape.
+- Practical complexity:
+  - Targeting a node by path is O(depth).
+  - Deleting or adding is O(siblings) due to array insertion/removal.
+  - Updating a subtree is O(size of the affected subtree), not O(size of the whole tree).

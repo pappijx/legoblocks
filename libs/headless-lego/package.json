@@ -17,5 +17,11 @@
   "files": [
     "dist",
     "!**/*.tsbuildinfo"
-  ]
+  ],
+  "author": {
+    "name": "Ayush Papnai",
+    "email": "ayush.papnai@gmail.com",
+    "url": "https://www.ayushpapnai.in"
+  },
+  "license": "MIT"
 }

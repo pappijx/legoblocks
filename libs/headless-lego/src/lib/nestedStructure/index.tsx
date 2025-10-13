@@ -145,7 +145,7 @@ export function NestedStructure({
         recurringNode,
         {
           key: index,
-          node: { ...node, billo: 'hey' },
+          node: { ...node },
           accessPath: accessPath,
           deleteNode: () => deleteNode(accessPath) ?? null,
           addNode: (
