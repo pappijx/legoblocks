@@ -85,6 +85,54 @@ export function NestedStructure({
     updatedRecurringData && updatedRecurringData(newTree);
   }
 
+  function updateAllChildrenNode(
+    accessPath: number[],
+    payload: any | ((node: any) => any),
+    options?: {
+      includeSelf?: boolean;
+      depth?: number;
+      predicate?: (node: any) => boolean;
+      childrenField?: string;
+    }
+  ) {
+    const {
+      includeSelf = true,
+      depth = Infinity,
+      predicate,
+      childrenField = 'children',
+    } = options || {};
+
+    const newTree = structuredClone(recurringData);
+
+    // Navigate to target node
+    let currentNode = newTree[accessPath[0]];
+    for (let i = 1; i < accessPath.length; i++) {
+      if (!currentNode[childrenField]) return; // Invalid path
+      currentNode = currentNode[childrenField][accessPath[i]];
+    }
+
+    const applyPayload = (n: any): any =>
+      typeof payload === 'function' ? payload(n) : { ...n, ...payload };
+
+    const dfs = (node: any, level: number) => {
+      if (includeSelf || level > 0) {
+        if (!predicate || predicate(node)) {
+          const updated = applyPayload(node);
+          Object.assign(node, updated);
+        }
+      }
+      if (level >= depth) return;
+      const children = node[childrenField];
+      if (Array.isArray(children)) {
+        for (const child of children) dfs(child, level + 1);
+      }
+    };
+
+    dfs(currentNode, 0);
+
+    updatedRecurringData && updatedRecurringData(newTree);
+  }
+
   const renderRecursive = (
     nodes: any[],
     parentAccessPath?: number[]
@@ -105,6 +153,15 @@ export function NestedStructure({
             position: 'child' | 'before' | 'after' = 'child'
           ) => addNode(accessPath, newNode, position),
           updateNode: (updatedNode: any) => updateNode(accessPath, updatedNode),
+          updateAllChildrenNode: (
+            payload: any | ((node: any) => any),
+            options?: {
+              includeSelf?: boolean;
+              depth?: number;
+              predicate?: (node: any) => boolean;
+              childrenField?: string;
+            }
+          ) => updateAllChildrenNode(accessPath, payload, options),
         },
         node.children ? renderRecursive(node.children, accessPath) : null
       );

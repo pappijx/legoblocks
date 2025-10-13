@@ -1,6 +1,6 @@
 # NestedStructure
 
-A headless recursive renderer for arbitrary tree data. You provide a "recurring" node component; the library walks your tree and clones that component at each node, wiring in helpers like `addNode` and `deleteNode`.
+A headless recursive renderer for arbitrary tree data. You provide a "recurring" node component; the library walks your tree and clones that component at each node, wiring in helpers like `addNode`, `deleteNode`, `updateNode`, and `updateAllChildrenNode`.
 
 ### When to use
 
@@ -74,7 +74,7 @@ export default function Example() {
 ## Core Concepts
 
 - **Headless rendering**: You control markup/styles via your `recurringNode` component. The library only handles recursion and immutable updates.
-- **Recursion with context**: Each node instance receives `node`, `children` (the rendered subtree), and helpers (`addNode`, `deleteNode`, `accessPath`).
+- **Recursion with context**: Each node instance receives `node`, `children` (the rendered subtree), and helpers (`addNode`, `deleteNode`, `updateNode`, `updateAllChildrenNode`, `accessPath`).
 
 ---
 
@@ -88,7 +88,7 @@ export default function Example() {
   - `recurringData: any[]`
     - Your root array of nodes. Each node can optionally contain a `children: any[]`.
   - `updatedRecurringData?: (updatedData: any[]) => void`
-    - Called with a new, cloned tree whenever a node is added or deleted.
+    - Called with a new, cloned tree whenever a node is added, deleted, or updated.
 - **Returns**
   - A fragment with your tree rendered by repeatedly cloning `recurringNode`.
 
@@ -109,6 +109,16 @@ export interface RecurringNodeProps<T> {
   accessPath?: number[];
   deleteNode?: () => void | null;
   addNode?: (newNode: T, position?: 'child' | 'before' | 'after') => void;
+  updateNode?: (updatedNode: T) => void;
+  updateAllChildrenNode?: (
+    payload: Partial<T> | ((node: T) => T),
+    options?: {
+      includeSelf?: boolean; // default true
+      depth?: number; // default Infinity
+      predicate?: (node: T) => boolean;
+      childrenField?: keyof T & string; // default 'children'
+    }
+  ) => void;
 }
 ```
 
@@ -122,10 +132,48 @@ export interface RecurringNodeProps<T> {
     - `'child'` (default): Appends to the current node’s `children`.
     - `'before'`: Inserts as a sibling before the current node.
     - `'after'`: Inserts as a sibling after the current node.
+- **updateNode(updatedNode)**: Shallowly updates the current node and triggers `updatedRecurringData`.
+- **updateAllChildrenNode(payload, options?)**: Applies `payload` to the current node (by default) and all descendants in one immutable update.
+  - `payload`: either a partial object merged into each affected node, or a function that returns a transformed node.
+  - `options.includeSelf` (default `true`): whether to update the current node too.
+  - `options.depth` (default `Infinity`): limit how deep to recurse; `0` means only self.
+  - `options.predicate`: only apply on nodes where this returns `true`.
+  - `options.childrenField` (default `'children'`): customize the children key if your data differs.
 
 Notes:
 
 - Sibling insertions (`before`/`after`) are no-ops for root items (no parent). For root-level insertion, call `addNode` on a root sibling or manage via the parent list in your app state.
+
+---
+
+## Example: Nested filters (cascade selection)
+
+```tsx
+type FilterNode = {
+  label: string;
+  selected: boolean;
+  children?: FilterNode[];
+};
+
+function FilterItem({ node, children, updateAllChildrenNode }: RecurringNodeProps<FilterNode>) {
+  const onToggle = (checked: boolean) => {
+    updateAllChildrenNode && updateAllChildrenNode({ selected: checked }, { includeSelf: true });
+  };
+
+  return (
+    <div>
+      <label>
+        <input type="checkbox" checked={!!node?.selected} onChange={(e) => onToggle(e.target.checked)} />
+        {node?.label}
+      </label>
+      <div style={{ paddingLeft: 12 }}>{children}</div>
+    </div>
+  );
+}
+
+// Usage
+<NestedStructure recurringNode={<FilterItem />} recurringData={filters} updatedRecurringData={setFilters} />;
+```
 
 ---
 

@@ -1,6 +1,7 @@
 import { NestedStructure, RecurringNodeProps } from 'headless-lego';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { nestedData, NestedDataProps } from '../data/nestedStructuredata';
+import { nestedFiltersData, FilterNode } from './data/nestedFiltersData';
 import {
   AiOutlineDelete,
   AiOutlineFileAdd,
@@ -20,7 +21,7 @@ import { ImSvg } from 'react-icons/im';
 import { FaGitAlt, FaMarkdown } from 'react-icons/fa';
 import { IoLogoJavascript } from 'react-icons/io';
 
-const fileExtensionWiseIcon: any = {
+const fileExtensionWiseIcon: Record<string, ReactNode> = {
   tsx: <TbFileTypeTsx />,
   json: <VscJson />,
   ts: <TbBrandTypescript />,
@@ -66,7 +67,7 @@ const NestedStructureComponent = ({
           {node?.type === 'folder' ? (
             <BiFolder />
           ) : (
-            fileExtensionWiseIcon[node!.name.split('.')[1]] ??
+            fileExtensionWiseIcon[node?.name?.split('.')[1] || ''] ??
             fileExtensionWiseIcon['default']
           )}
 
@@ -124,10 +125,12 @@ const NestedStructureComponent = ({
 
 const PlayGround = () => {
   const [treeData, setTreeData] = useState<NestedDataProps[]>(nestedData);
+  const [filters, setFilters] = useState<FilterNode[]>(nestedFiltersData);
 
   return (
     <div className={`p-8 text-text bg-border rounded-xl h-full`}>
       <h1 className="text-3xl font-bold mb-4">Play Ground</h1>
+      <h2 className="text-lg font-bold">Folder structure</h2>
       <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
         <NestedStructure
           recurringNode={<NestedStructureComponent />}
@@ -135,8 +138,41 @@ const PlayGround = () => {
           updatedRecurringData={setTreeData}
         />
       </div>
+      <h2 className="mt-4 mb-2 text-l font-bold">Nested filters</h2>
+      <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
+        <NestedStructure
+          recurringNode={<FilterNodeComponent />}
+          recurringData={filters}
+          updatedRecurringData={setFilters}
+        />
+      </div>
     </div>
   );
 };
 
 export default PlayGround;
+
+const FilterNodeComponent = ({
+  node,
+  children,
+  updateAllChildrenNode,
+}: RecurringNodeProps<FilterNode>) => {
+  const onToggle = (checked: boolean) => {
+    if (!updateAllChildrenNode) return;
+    updateAllChildrenNode({ selected: checked }, { includeSelf: true });
+  };
+
+  return (
+    <div className="flex flex-col">
+      <label className="flex items-center gap-2 py-0.5">
+        <input
+          type="checkbox"
+          checked={!!node?.selected}
+          onChange={(e) => onToggle(e.target.checked)}
+        />
+        <span>{node?.label}</span>
+      </label>
+      <div className="pl-4">{children}</div>
+    </div>
+  );
+};

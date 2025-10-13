@@ -10,6 +10,16 @@ export interface RecurringNodeProps<T> {
     position: 'child' | 'before' | 'after' = 'child'
   ) => void;
   updateNode?: (updatedNode: T) => void;
+  updateNodeDeep?: (transform: (node: T) => T) => void;
+  updateAllChildrenNode?: (
+    payload: Partial<T> | ((node: T) => T),
+    options?: {
+      includeSelf?: boolean;
+      depth?: number; // Infinity by default
+      predicate?: (node: T) => boolean;
+      childrenField?: keyof T & string; // defaults to 'children'
+    }
+  ) => void;
 }
 
 export type NestedStructureProps<T> = {
