@@ -18,6 +18,9 @@
     "dist",
     "!**/*.tsbuildinfo"
   ],
+  "scripts": {
+    "build": "nx build headless-lego"
+  },
   "author": {
     "name": "Ayush Papnai",
     "email": "ayush.papnai@gmail.com",
