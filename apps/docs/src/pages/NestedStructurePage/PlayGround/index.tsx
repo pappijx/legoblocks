@@ -1,6 +1,6 @@
-import { NestedStructure, RecurringNodeProps } from '@legoblocks/ui';
+import { NestedStructure, RecurringNodeProps } from '@legoblock/ui';
 import { useEffect, useState, type ReactNode } from 'react';
-import { nestedData, NestedDataProps } from '../data/nestedStructuredata';
+import { nestedData, NestedDataProps } from './data/nestedStructuredata';
 import { nestedFiltersData, FilterNode } from './data/nestedFiltersData';
 import {
   AiOutlineDelete,
@@ -130,21 +130,27 @@ const PlayGround = () => {
   return (
     <div className={`p-8 text-text bg-border rounded-xl h-full`}>
       <h1 className="text-3xl font-bold mb-4">Play Ground</h1>
-      <h2 className="text-lg font-bold">Folder structure</h2>
-      <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
-        <NestedStructure
-          recurringNode={<NestedStructureComponent />}
-          recurringData={treeData}
-          updatedRecurringData={setTreeData}
-        />
-      </div>
-      <h2 className="mt-4 mb-2 text-l font-bold">Nested filters</h2>
-      <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
-        <NestedStructure
-          recurringNode={<FilterNodeComponent />}
-          recurringData={filters}
-          updatedRecurringData={setFilters}
-        />
+      <div className="flex gap-4">
+        <div className="flex flex-col gap-2 w-[50%]">
+          <h2 className="text-lg font-bold">Folder structure</h2>
+          <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
+            <NestedStructure
+              recurringNode={<NestedStructureComponent />}
+              recurringData={treeData}
+              updatedRecurringData={setTreeData}
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-2 w-[50%]">
+          <h2 className="text-lg font-bold">Nested filters</h2>
+          <div className="bg-surface text-text px-2 py-1 rounded-md text-sm font-mono h-[400px] overflow-auto">
+            <NestedStructure
+              recurringNode={<FilterNodeComponent />}
+              recurringData={filters}
+              updatedRecurringData={setFilters}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

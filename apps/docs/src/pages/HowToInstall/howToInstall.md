@@ -1,6 +1,6 @@
 # 📦 Installation Guide
 
-Get started with **@legoblocks/ui** in your React project with this comprehensive installation guide.
+Get started with **@legoblock/ui** in your React project with this comprehensive installation guide.
 
 ---
 
@@ -8,29 +8,29 @@ Get started with **@legoblocks/ui** in your React project with this comprehensiv
 
 ### Step 1: Install the Package
 
-Install **@legoblocks/ui** from npm:
+Install **@legoblock/ui** from npm:
 
 ```bash
-npm install @legoblocks/ui
+npm install @legoblock/ui
 ```
 
 Or if you're using Yarn:
 
 ```bash
-yarn add @legoblocks/ui
+yarn add @legoblock/ui
 ```
 
 Or with pnpm:
 
 ```bash
-pnpm add @legoblocks/ui
+pnpm add @legoblock/ui
 ```
 
 ---
 
 ## 📋 Prerequisites
 
-Before installing **@legoblocks/ui**, ensure you have:
+Before installing **@legoblock/ui**, ensure you have:
 
 - **Node.js** version 16 or higher
 - **React** version 18 or higher
@@ -45,8 +45,8 @@ Before installing **@legoblocks/ui**, ensure you have:
 Import the components you need in your React component:
 
 ```tsx
-import { NestedStructure } from '@legoblocks/ui';
-import type { NestedStructureProps, RecurringNodeProps } from '@legoblocks/ui';
+import { NestedStructure } from '@legoblock/ui';
+import type { NestedStructureProps, RecurringNodeProps } from '@legoblock/ui';
 ```
 
 ### Step 3: Define Your Data Structure
@@ -162,7 +162,7 @@ Put it all together in your main component:
 
 ```tsx
 import React, { useState } from 'react';
-import { NestedStructure } from '@legoblocks/ui';
+import { NestedStructure } from '@legoblock/ui';
 import { FileNodeComponent } from './FileNodeComponent';
 
 const FileTreeApp: React.FC = () => {

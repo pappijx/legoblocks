@@ -27,7 +27,7 @@ export default defineConfig(() => ({
     },
   },
   test: {
-    name: '@legoblocks/docs',
+    name: '@legoblock/docs',
     watch: false,
     globals: true,
     environment: 'jsdom',

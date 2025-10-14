@@ -1,6 +1,6 @@
 # Lego Blocks
 
-**@legoblocks** is a modular React component library designed to provide developers with a comprehensive collection of reusable, **headless UI components**.  
+**@legoblock** is a modular React component library designed to provide developers with a comprehensive collection of reusable, **headless UI components**.  
 The library follows a **"headless" architecture pattern**, meaning it delivers core functionality and state management logic **without enforcing any specific styling or visual presentation**.
 
 ---
@@ -31,4 +31,4 @@ The library follows a **"headless" architecture pattern**, meaning it delivers c
 
 ## Philosophy
 
-**@legoblocks** empowers developers to build **custom user interfaces** by leveraging **battle-tested component logic** while maintaining **full creative control** over visual styling and implementation.
+**@legoblock** empowers developers to build **custom user interfaces** by leveraging **battle-tested component logic** while maintaining **full creative control** over visual styling and implementation.

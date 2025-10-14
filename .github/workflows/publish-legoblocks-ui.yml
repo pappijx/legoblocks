@@ -1,4 +1,4 @@
-name: Publish @legoblocks/ui
+name: Publish @legoblock/ui
 
 on:
   release:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "@legoblocks/ui-lego-v*"
+      - "@legoblock/ui-lego-v*"
 
 jobs:
   publish:
@@ -29,11 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build @legoblocks/ui
+      - name: Build @legoblock/ui
         working-directory: "."
-        run: npx nx build @legoblocks/ui
+        run: npx nx build @legoblock/ui
 
-      - name: Publish @legoblocks/ui
+      - name: Publish @legoblock/ui
         working-directory: libs/ui
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

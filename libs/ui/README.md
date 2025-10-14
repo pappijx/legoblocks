@@ -1,8 +1,8 @@
-# @legoblocks/ui
+# @legoblock/ui
 
 A headless React library for rendering and managing nested tree structures with immutable updates. Perfect for building file explorers, nested menus, organizational charts, and any hierarchical data visualization.
 
-**Live Documentation & Examples:** https://legoblocks.ayushpapnai.in/
+**Live Documentation & Examples:** https://legoblock.ayushpapnai.in/
 
 ## Features
 
@@ -17,17 +17,17 @@ A headless React library for rendering and managing nested tree structures with 
 ## Installation
 
 ```bash
-npm install @legoblocks/ui
+npm install @legoblock/ui
 # or
-yarn add @legoblocks/ui
+yarn add @legoblock/ui
 # or
-pnpm add @legoblocks/ui
+pnpm add @legoblock/ui
 ```
 
 ## Quick Start
 
 ```tsx
-import { NestedStructure, RecurringNodeProps } from '@legoblocks/ui';
+import { NestedStructure, RecurringNodeProps } from '@legoblock/ui';
 import { useState } from 'react';
 
 type Node = {
