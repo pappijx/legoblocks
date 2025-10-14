@@ -2,6 +2,8 @@
 
 A headless recursive renderer for arbitrary tree data. You provide a "recurring" node component; the library walks your tree and clones that component at each node, wiring in helpers like `addNode`, `deleteNode`, `updateNode`, and `updateAllChildrenNode`.
 
+For installation instructions, see [How to install](/how-to-install).
+
 ### When to use
 
 - You need to render nested or hierarchical data (e.g., folders/files, menus, org charts).
@@ -9,16 +11,9 @@ A headless recursive renderer for arbitrary tree data. You provide a "recurring"
 
 ---
 
-## Installation
+## Live Playground
 
-```bash
-# in an app that consumes the @legoblock/ui library
-pnpm add @legoblock/ui
-# or
-npm i @legoblock/ui
-# or
-yarn add @legoblock/ui
-```
+See live preview [CodeSandbox](https://codesandbox.io/p/sandbox/how-to-use-legoblocks-kgl4r7).
 
 ---
 
