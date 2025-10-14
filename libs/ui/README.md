@@ -2,7 +2,7 @@
 
 A headless React library for rendering and managing nested tree structures with immutable updates. Perfect for building file explorers, nested menus, organizational charts, and any hierarchical data visualization.
 
-**Live Documentation & Examples:** https://legoblock.ayushpapnai.in/
+**Live Documentation & Examples:** https://legoblocks.ayushpapnai.in/
 
 ## Features
 
