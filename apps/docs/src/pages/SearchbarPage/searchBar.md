@@ -33,12 +33,13 @@ export default function Example() {
     <SearchBar
       data={items}
       onChange={(query, results) => console.log('Search changed:', query, results)}
+      onResults={(r) => console.log('Results:', r)}
       options={{
         debounceMs: 300,
         showSearchButton: true,
         searchButtonText: 'Search',
+        onSearch: (query, results) => console.log('Manual search:', query, results),
       }}
-      onResults={(r) => console.log('Results:', r)}
     >
       {({ query, setQuery, results, clear, isSearching, searchButton }) => (
         <div>
@@ -77,6 +78,8 @@ export default function Example() {
 - **Multiple Callbacks**: `onChange`, `onResults`, and `onSearch` provide different levels of search event handling.
 - **Children Item Search**: Works with any data structure, including nested objects with children arrays.
 
+- **Event callbacks**: `onChange` is called with debounced query and results when the query changes; `onResults` is called with results when they are computed; `onSearch` is called when a manual search is triggered (via `triggerSearch`/search button) and also after an automatic search if results changed.
+
 ---
 
 ## Public API
@@ -108,14 +111,18 @@ export interface SearchBarRenderProps<T> {
   results: T[];
   clear: () => void;
   isSearching: boolean;
-} ˛ 
+  triggerSearch: () => void;
+  searchButton: React.ReactNode | null;
+}
 ```
 
 - `query`: Current query string.
 - `setQuery(q)`: Update the query string (triggers a debounced search).
 - `results`: Current array of matching items.
 - `clear()`: Clears the query and resets results to `data`.
-- `isSearching`: True while the input debounce timer is active.
+- `isSearching`: True while the input debounce timer is active (or while a manual search is in progress).
+- `triggerSearch()`: Manually trigger an immediate search (skips debounce).
+- `searchButton`: If `options.showSearchButton` is truthy, a rendered button (default or custom) to trigger manual search.
 
 ---
 
@@ -146,10 +153,20 @@ interface SearchBarRenderProps<T> {
 }
 ```
 
-**New Properties:**
+**New Properties (summary):**
 
-- `triggerSearch()`: **NEW** - Manually trigger search (useful for search buttons).
-- `searchButton`: **NEW** - The rendered search button (null if disabled).
+- `triggerSearch()`: Manually trigger search (useful for search buttons).
+- `searchButton`: The rendered search button (null if disabled).
+
+---
+
+## Behavior details
+
+- Debounced callbacks: `onChange` and `onResults` are invoked after the configured debounce window (default 200ms). This reduces spamming parent handlers while typing.
+- Deduping: callbacks are only called when the query or the resulting list actually changes. This prevents redundant parent updates and extra re-renders.
+- `isSearching`: set to true while waiting for the debounce to expire and cleared after the search completes. Use it to show loading states during typing.
+- `triggerSearch()` and the rendered `searchButton` perform an immediate search and call the same callbacks; `onSearch` is invoked for manual searches as well as automatic searches when the results change.
+- Default filter: a simple JSON-string include matcher; provide `options.filter` for more precise, performant behavior on large datasets.
 
 ---
 
