@@ -20,10 +20,10 @@ export const sidenavdata: SideNavDataProp[] = [
         label: 'Nested Structures',
         route: '/nested-structure',
       },
-      // {
-      //   label: 'Search bar',
-      //   route: '/search-bar',
-      // },
+      {
+        label: 'Search bar',
+        route: '/search-bar',
+      },
     ],
   },
 ];

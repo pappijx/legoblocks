@@ -1,5 +1,5 @@
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { Introduction, NestedStructurePage } from '../pages';
+import { Introduction, NestedStructurePage, SearchbarPage } from '../pages';
 import { PropsWithChildren, Suspense } from 'react';
 import MasterLayout from '../components/layout/MasterLayout';
 import HowToInstall from '../pages/HowToInstall';
@@ -42,6 +42,14 @@ export function App() {
           element={
             <SuspenseLoadedElement>
               <NestedStructurePage />
+            </SuspenseLoadedElement>
+          }
+        />
+        <Route
+          path="/search-bar"
+          element={
+            <SuspenseLoadedElement>
+              <SearchbarPage />
             </SuspenseLoadedElement>
           }
         />

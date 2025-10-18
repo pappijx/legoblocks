@@ -129,7 +129,7 @@ const PlayGround = () => {
 
   return (
     <div className={`p-8 text-text bg-border rounded-xl h-full`}>
-      <h1 className="text-3xl font-bold mb-4">Play Ground</h1>
+      <h1 className="text-3xl font-bold mb-4">Try it</h1>
       <div className="flex gap-4">
         <div className="flex flex-col gap-2 w-[50%]">
           <h2 className="text-lg font-bold">Folder structure</h2>
